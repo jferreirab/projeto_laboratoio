@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+
+	
+  <p:accordionPanel id="acordeHist">
+       <p:tab title="Historico Ordem Serviço " id="tabHistOS">
+		<h:panelGrid columns="2" id="panelgridHist">
+		
+		<p:dataTable  var="historicoOrdemServico"  value="#{ordemServicoMB.historicoOrdemServico}" id="datatabHist1" editable="true">
+		    <p:column>
+		        <f:facet name="header">
+			    	<h:outputText value="#{bundle.historicoOrdemServicoCodigo}" />
+			    </f:facet>
+			    <h:outputText value="#{ordemServicoMB.historicoOrdemServico.id}" ></h:outputText>
+			</p:column>
+			<p:column>
+				<f:facet name="header">    
+					<h:outputText value=" #{bundle.ordemServicoCodigo}" />
+			    </f:facet>
+			<h:outputText  value="#{ordemServicoMB.historicoOrdemServico.ordemServico.id}" disabled="true"/>
+			</p:column>
+			
+			<p:column>
+				<f:facet name="header">   
+					<h:outputText value=" #{bundle.ordemServicoCliente}" />
+				</f:facet>
+				<h:outputText value="#{ordemServicoMB.historicoOrdemServico.cliente.name}" disabled="true"/>
+			</p:column>
+			<p:column>
+				<f:facet name="header">   
+					<h:outputText value=" #{bundle.ordemServicoDentista}" />
+				</f:facet>
+				<h:outputText value="#{ordemServicoMB.historicoOrdemServico.dentista.nome}" disabled="true"/>
+			</p:column>
+			<p:column>
+				<f:facet name="header">  
+	        		<h:outputText value=" #{bundle.ordemServicoPaciente}" />
+	        	</f:facet>
+	        	<h:outputText value="#{ordemServicoMB.historicoOrdemServico.paciente}" disabled="true"/>
+	         </p:column>  
+	        
+	        <p:column>
+				<f:facet name="header">      				
+					<h:outputText value=" #{bundle.ordemServicoDsDescricao}" />
+				</f:facet>
+				<h:outputText  value="#{ordemServicoMB.historicoOrdemServico.dsDescricao}"     /> 
+		    </p:column>
+		    
+		    <p:column>
+				<f:facet name="header">  
+	        		<h:outputText value=" #{bundle.historicoOrdemServicoDtEntrada}" />
+	        	</f:facet>
+	        	<h:outputText value="#{ordemServicoMB.historicoOrdemServico.dtEntrada}" pattern="dd/mm/yyyy HH:mm" required="true" showOn="button" 
+	         		 label="data de Entrada" disabled="true" >
+	          		 <f:convertDateTime type="date" dateStyle="short" locales="pt_BR"
+									  timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm"  />
+	        	</h:outputText>
+	        </p:column>
+	        
+	        <p:column>
+				<f:facet name="header">  
+	        		<h:outputText value=" #{bundle.historicoOrdemServicoDtSaida}" />
+	        	</f:facet>
+		        <h:outputText value="#{ordemServicoMB.historicoOrdemServico.dtSaida}" pattern="dd/mm/yyyy HH:mm"  
+		           >
+		           <f:convertDateTime type="date" dateStyle="short" locales="pt_BR"
+									  timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm" />
+		        </h:outputText>
+	        </p:column>
+	        
+	        <p:column>
+				<f:facet name="header">  
+	        		<h:outputText value=" #{bundle.historicoOrdemServicoPreco}" />
+			    </f:facet>
+				<h:outputText  value="#{ordemServicoMB.historicoOrdemServico.preco}" 
+				              size="5"
+					          style="text-align:right" locales="pt_BR"/>
+			</p:column>	 
+			
+			<p:column>
+				<f:facet name="header">           
+					<h:outputText value=" #{bundle.historicoOrdemServicoSituacao}" />
+				</f:facet>
+				<h:outputText  value="#{ordemServicoMB.historicoOrdemServico.situacao}" 
+			              />	
+			</p:column>
+			
+			<p:column>
+				<f:facet name="header">  
+					<h:outputText value=" #{bundle.historicoOrdemServicoDtAlteracao}" />
+				</f:facet>
+				<h:outputText  value="#{ordemServicoMB.historicoOrdemServico.dtAlteracao}"  disabled="true">
+						   <f:convertDateTime type="date" dateStyle="short" locales="pt_BR"
+									  timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm" />
+				</h:outputText>	
+			</p:column>
+		</p:dataTable>					
+		</h:panelGrid>
+	   </p:tab>
+       </p:accordionPanel>
+
+</html>

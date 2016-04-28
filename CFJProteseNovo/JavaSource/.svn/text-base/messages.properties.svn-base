@@ -1,0 +1,74 @@
+#Actions
+welcomeMessage=Hello! Show me the best soccer team logo ever
+update=Alterar
+create=Criar
+delete=Delete
+cancel=Cancel
+detail=Detalhe
+logIn=Log In
+add=Add
+sair=Sair
+fechar=Fechar
+remove=Remove
+ok=Ok
+historico=Histórico
+logOut= Sair
+javax.faces.component.UIInput.REQUIRED={0}: Não foi informado valor para este campo. Campo Obrigatorio!
+javax.faces.validator.LengthValidator.MINIMUM={1}\: Length is less than allowable minimum of \u2018\u2019{0}\u2019\u2019
+noRecords=Sem dados para mostrar
+deleteRecord=Do you want do delete the record
+ 
+#Login / Roles Validations
+loginHello=Entre para acessar páginas seguras
+loginUserName=Usuario
+loginPassword=Senha
+logout=Log Out
+loginWelcomeMessage=Bem Vindo
+accessDeniedHeader=Wow, our ninja cat found you!
+accessDeniedText=Sorry but you can not access that page. If you try again, that ninja cat gonna kick you harder! >= )
+accessDeniedButton=You got-me, take me out. =/
+
+#Person
+person=Person
+personPlural=Persons
+personName=Name
+personAge=Age
+personDogs=These dogs belongs to
+personAddDogTo=Add the selected Dog To
+personRemoveDogFrom=Remove the selected Dog from
+personEditDogs=Edit Dogs
+
+#Dog
+dog=Dog
+dogPlural=Dogs
+dogName=Name
+dogAge=Age
+
+#Cliente
+cliente=Cliente
+clientePlural=Clientes
+clienteNome =Nome
+clienteEndereco=Endereço
+
+#OrdemServico
+ordemServicos=Ordens Serviços
+ordemServicoDsDescricao=Descrição
+ordemServicoCliente=Cliente
+ordemServicoDtEntrada=Dt. Entrada
+ordemServicoDtSaida=Dt. Saída
+ordemServicoPaciente=Paciente
+ordemServicoSituacao=Situação
+ordemServico=OrdemServico
+ordemServicoCodigo= Cod. O.S.
+ordemServicoPreco=Preço
+ordemServicoLocaliza=Localizar
+OrdemServicoPeriodo=Periodo
+ordemServicoRelatorio=Relatório PDF
+
+#HistoricoOrdemServico
+historicoOrdemServicoCodigo=Cod. Hist
+historicoOrdemServicoDtEntrada=Dt. Entrada
+historicoOrdemServicoDtSaida=Dt. Entrega
+historicoOrdemServicoPreco=Preço
+historicoOrdemServicoSituacao=Situação
+historicoOrdemServicoDtAlteracao=Dt. Alteração

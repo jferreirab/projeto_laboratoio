@@ -1,0 +1,517 @@
+package com.mb;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
+
+import com.facade.ClienteFacade;
+import com.facade.HistoricoOrdemServicoFacade;
+import com.facade.OrdemServicoFacade;
+import com.facade.RelatorioOrdemServicoFacade;
+import com.model.Cliente;
+import com.model.HistoricoOrdemServico;
+import com.model.OrdemServico;
+import com.model.RelatorioOrdemServico;
+import com.model.Situacao;
+import com.model.User;
+import com.util.Sistema;
+
+@ViewScoped
+@ManagedBean
+public class OrdemServicoMB extends AbstractMB implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	private OrdemServico ordemServico;
+	private OrdemServico filtro;
+	private List<OrdemServico> ordemServicos;
+	private OrdemServicoFacade ordemServicoFacade;
+	private ClienteFacade clienteFacade;
+	private Cliente cliente;
+	private Cliente clienteFiltro;
+	private List<Cliente> allClientes;
+	private Situacao situacao;
+	private Situacao situacaoFiltro;
+	
+	private HistoricoOrdemServico  historicoOrdemServico;
+	private HistoricoOrdemServicoFacade historicoOrdemServicoFacade;
+	private User user;
+	private RelatorioOrdemServicoFacade relatorioOrdemServicoFacade;
+	
+	public OrdemServicoFacade getOrdemServicoFacade() {
+		if (ordemServicoFacade == null) {
+			ordemServicoFacade = new OrdemServicoFacade();
+		}
+
+		return ordemServicoFacade;
+	}
+	
+	public RelatorioOrdemServicoFacade getRelatorioOrdemServicoFacade() {
+		if (relatorioOrdemServicoFacade == null) {
+			relatorioOrdemServicoFacade = new RelatorioOrdemServicoFacade();
+		}
+
+		return relatorioOrdemServicoFacade;
+	}
+	public ClienteFacade getClienteFacade() {
+		if (clienteFacade == null) {
+			clienteFacade = new ClienteFacade();
+		}
+
+		return clienteFacade;
+	}
+	
+	public HistoricoOrdemServicoFacade getHistoricoOrdemServicoFacade() {
+		if (historicoOrdemServicoFacade == null) {
+			historicoOrdemServicoFacade = new HistoricoOrdemServicoFacade();
+		}
+
+		return historicoOrdemServicoFacade;
+	}
+
+	public OrdemServico getOrdemServico() {
+		if (ordemServico == null) {
+			ordemServico = new OrdemServico();
+		}
+
+		return ordemServico;
+	}
+
+	public void setOrdemServico(OrdemServico ordemServico) {
+		this.ordemServico = ordemServico;
+		 historicoOrdemServicoAtual();
+	}
+
+	public void createOrdemServico() {
+		try {
+				
+			user =  (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user"); 
+			if (situacao != null){
+				ordemServico.setSituacao(situacao);
+			}
+			if(cliente != null){
+				ordemServico.setCliente(cliente);
+			}
+			if(user != null){
+				ordemServico.setIdUser(user.getId());
+				ordemServico.setDtCadastro(new Date());
+			}
+			getOrdemServicoFacade().createOrdemServico(ordemServico);
+			
+			
+			if (ordemServicos == null){
+				ordemServicos = getOrdemServicoFacade().recuperaOrdemServico(ordemServico);
+			}
+			else{
+			    ordemServicos.add(ordemServico);
+			}
+			closeDialog();
+			displayInfoMessageToUser("Ordem Gravada com Sucesso!");
+			
+			resetOrdemServico();
+		} catch (Exception e) {
+			keepDialogOpen();
+			displayErrorMessageToUser("Ops, n„o poderÌamos criar. Tente novamente mais tarde!");
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateOrdemServico() {
+		try {
+			
+			user =  (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user"); 
+			if(user != null){
+				ordemServico.setIdUserAlteracao(user.getId());		
+			}
+			if (situacao != null){
+				ordemServico.setSituacao(situacao);
+			}
+			
+			historicoOrdemServico.setIdUserAlteracao(user.getId());
+			historicoOrdemServico.setDtAlteracao(new Date());
+			
+			getHistoricoOrdemServicoFacade().createHistoricoOrdemServico(historicoOrdemServico);
+			List<HistoricoOrdemServico> hist = ordemServico.getHistoricoOrdemServico();
+			
+			hist.add(historicoOrdemServico);
+			
+			ordemServico.setHistoricoOrdemServico(hist);
+			getOrdemServicoFacade().updateOrdemServico(ordemServico);
+			closeDialog();
+			displayInfoMessageToUser("Dados Gravados com Sucesso!");
+			//loadOrdemServicos();
+			resetOrdemServico();
+		} catch (Exception e) {
+			keepDialogOpen();
+			displayErrorMessageToUser("Ops, Erro ao atualizar Dados. Tente novamente mais tarde!");
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteOrdemServico() {
+		try {
+			getOrdemServicoFacade().deleteOrdemServico(ordemServico);
+			closeDialog();
+			displayInfoMessageToUser("Deleted With Sucess");
+			loadOrdemServicos();
+			resetOrdemServico();
+		} catch (Exception e) {
+			keepDialogOpen();
+			displayErrorMessageToUser("Ops, we could not create. Try again later");
+			e.printStackTrace();
+		}
+	}
+
+	public List<OrdemServico> getAllOrdemServicos() {
+		if (ordemServicos == null) {
+			//loadOrdemServicos();
+		}
+		if (clienteFiltro == null){
+			clienteFiltro = new Cliente();
+	
+		}
+		if (filtro == null){
+			filtro = new OrdemServico();
+		}
+
+		return ordemServicos;
+	}
+
+	private void loadOrdemServicos() {
+		ordemServicos = getOrdemServicoFacade().listAll();
+		
+	}
+
+	public void resetOrdemServico() {
+		ordemServico = new OrdemServico();
+		cliente      = new Cliente();
+		filtro       = new OrdemServico();
+		situacao     = null;
+	}
+    
+	public void localizarOrdemServico() {
+		if (clienteFiltro != null && clienteFiltro.getId() != 0  ){
+			if (filtro ==null){
+				filtro = new OrdemServico();
+			}
+			filtro.setCliente(clienteFiltro);
+		}
+		if(situacaoFiltro != null ){
+			if (filtro ==null){
+				filtro = new OrdemServico();
+			}
+			filtro.setSituacao(situacaoFiltro);
+		}
+		
+		ordemServicos = getOrdemServicoFacade().recuperaOrdemServico(filtro);
+		
+	}
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	
+	public List<Cliente> complete(String name) {
+		List<Cliente> queryResult = new ArrayList<Cliente>();
+
+		if (allClientes == null) {
+			
+			allClientes = getClienteFacade().listAll();
+		}
+
+		allClientes.remove(ordemServico.getCliente());
+
+		for (Cliente cliente : allClientes) {
+			if (cliente.getName().toLowerCase().contains(name.toLowerCase())) {
+				queryResult.add(cliente);
+			}
+		}
+
+		return queryResult;
+	}
+	
+	public List<Cliente> completeFiltro(String name) {
+		List<Cliente> queryResult = new ArrayList<Cliente>();
+
+		if (allClientes == null) {
+			
+			allClientes = getClienteFacade().listAll();
+		}
+
+		allClientes.remove(ordemServico.getCliente());
+
+		for (Cliente cliente : allClientes) {
+			if (cliente.getName().toLowerCase().contains(name.toLowerCase())) {
+				queryResult.add(cliente);
+			}
+		}
+
+		return queryResult;
+	}
+
+	public Situacao getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(Situacao situacao) {
+		this.situacao = situacao;
+	}
+	
+	public List<Situacao> completeSituacao(String name) {
+		List<Situacao> queryResult = new ArrayList<Situacao>();
+
+		
+		for (Situacao situacao : Situacao.values()) {
+			
+				queryResult.add(situacao);
+			
+		}
+
+		return queryResult;
+	}
+
+	public OrdemServico getAllHistoricoOrdemServicos() {
+		 List<HistoricoOrdemServico> hist = getHistoricoOrdemServicoFacade().listAll(ordemServico);
+		
+		 ordemServico.setHistoricoOrdemServico(hist);
+		return  ordemServico;
+	}
+
+
+
+	public HistoricoOrdemServico getHistoricoOrdemServico() {
+		return historicoOrdemServico;
+	}
+
+	public void setHistoricoOrdemServico(HistoricoOrdemServico historicoOrdemServico) {
+		this.historicoOrdemServico = historicoOrdemServico;
+	}
+	
+	public void historicoOrdemServicoAtual() {
+		try {
+			if(ordemServico != null){
+				historicoOrdemServico = new HistoricoOrdemServico();
+				historicoOrdemServico.setDtEntrada(ordemServico.getDtEntrada());
+				historicoOrdemServico.setDtSaida(ordemServico.getDtSaida());
+				historicoOrdemServico.setOrdemServico(ordemServico);
+				historicoOrdemServico.setPreco(ordemServico.getPreco());
+				historicoOrdemServico.setSituacao(ordemServico.getSituacao());
+			}
+		} catch (Exception e) {
+			keepDialogOpen();
+			displayErrorMessageToUser("Ops, we could not create. Try again later");
+			e.printStackTrace();
+		}
+	}
+
+	public OrdemServico getFiltro() {
+		return filtro == null ? new OrdemServico() : filtro ;
+	}
+
+	public void setFiltro(OrdemServico filtro) {
+		this.filtro = filtro;
+	}
+
+	public Cliente getClienteFiltro() {
+		return clienteFiltro;
+	}
+
+	public void setClienteFiltro(Cliente clienteFiltro) {
+		this.clienteFiltro = clienteFiltro;
+	}
+	
+
+	public Situacao getSituacaoFiltro() {
+		return situacaoFiltro;
+	}
+
+	public void setSituacaoFiltro(Situacao situacaoFiltro) {
+		this.situacaoFiltro = situacaoFiltro;
+	}
+	
+	public void limpaCodigo(){
+		filtro.setId(0);
+	}
+	
+	public void limpaCliente(){
+		clienteFiltro = new Cliente();
+		filtro.setCliente(clienteFiltro);
+	}
+	
+	public void limpaPaciente(){
+		filtro.setPaciente("");
+	}
+	
+	public void limpaPeriodo(){
+		
+		Date data = null ;
+				
+		filtro.setDtEntrada(data);
+		filtro.setDtSaida(data);
+	}
+	public void limpaSituacao(){
+		
+		situacaoFiltro = null;
+		filtro.setSituacao(situacaoFiltro);
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	//gerar relatorio pdf
+	private byte[] relatorioOrdemServico(
+	        String path,
+	        String slash,
+	        Collection< RelatorioOrdemServico > lista,
+	        String nomeRelatorio
+	        
+	        ) throws JRException,Exception {
+
+	        if ( nomeRelatorio == null ) {
+	            
+	        	
+	            displayErrorMessageToUser("Ops,Nome do relat·rio n„o informado");
+				
+	        }
+	        if ( lista == null || lista.size() == 0 ) {
+	        	
+	            throw new Exception( "N„o h· informaÁ„o disponÌvel para imprimir "
+	                 );
+	        }
+
+	        Map< String, Object > parametros = new HashMap< String, Object >();
+	        parametros.put( "SUBREPORT_DIR", path + slash );
+
+	       
+	        GregorianCalendar g = new GregorianCalendar();
+	        g.set( GregorianCalendar.getInstance().get( GregorianCalendar.YEAR ), GregorianCalendar.getInstance().get(
+	            GregorianCalendar.MONDAY ), GregorianCalendar.getInstance().get( GregorianCalendar.DATE ) );
+	        parametros.put( "dataAtual", g.getTime() );
+
+	        @SuppressWarnings("deprecation")
+			JasperReport relatorio = (JasperReport) JRLoader.loadObject( path + slash + nomeRelatorio );
+	        byte[] bytes1 = JasperRunManager
+	            .runReportToPdf( relatorio, parametros, new JRBeanCollectionDataSource( lista ) );
+
+	        return bytes1;
+
+	    }
+	
+	 /*
+     * identifica qual relatorio pdf deve ser executado e retorna os bytes para
+     * sua construcao
+     */
+    private Object[] verificaRelatorioPDF(  ) throws Exception {
+
+        // Localiza√ß√£o do arquivo de propriedades lcalizado no servidor
+        // String configPath = "\\opt\\javaapp\\config\\compras-config.properties";
+        // √â a propriedade relativa ao caminho onde est√° o relat√≥rio
+        // compilado.
+        Properties configSistema = Sistema.configSistema();
+        String path = configSistema.getProperty( "report.path" );
+        String slash = configSistema.getProperty( "system.slash" );
+
+        byte[] bytes = null;
+        String nomeArquivoDownload = null;
+
+        bytes = relatorioOrdemServico(path, slash);
+        nomeArquivoDownload = "Relatorio_Final_".concat( new Date().toString() );
+            
+        Object[] relatorio = { bytes, nomeArquivoDownload };
+
+        return relatorio;
+    }
+    
+    private byte[] relatorioOrdemServico(
+            String path,
+            String slash
+             ) throws JRException, Exception {
+
+            String nomeRelatorio = "relatoria_fechamento_mensal.jasper";
+            Collection<RelatorioOrdemServico> lista =getRelatorioOrdemServicoFacade().recuperaOrdemServico(filtro); 
+
+            return relatorioOrdemServico(path, slash,  lista, nomeRelatorio);
+    }
+    
+    /* identifica e constroi um relatorio pdf */
+    public void actionListenerImprimir(  ) {
+
+        FacesContext fc = FacesContext.getCurrentInstance();
+
+        try {
+
+            Object[] relatorio = verificaRelatorioPDF(  );
+            byte[] bytes = (byte[]) relatorio[ 0 ];
+            String nomeArquivoDownload = (String) relatorio[ 1 ];
+
+            
+            if ( bytes != null && bytes.length > 0 ) {
+
+                HttpServletResponse response = (HttpServletResponse) fc.getExternalContext().getResponse();
+                response.setHeader( "Content-disposition", "attachment;filename=\"".concat( nomeArquivoDownload )
+                    .concat( ".pdf\"" ) );
+
+                /*
+                 * aqui ir√° abrir a janela do tipo abrir ou salvar...
+                 * 
+                 * caso se queira abrir direto na pagina basta comentar essa
+                 * linha
+                 */
+                response.setContentType( "application/pdf" );
+
+                response.setContentLength( bytes.length );
+                ServletOutputStream ouputStream = response.getOutputStream();
+                ouputStream.write( bytes, 0, bytes.length );
+                ouputStream.flush();
+                ouputStream.close();
+                fc.renderResponse();
+                fc.responseComplete();
+
+            }
+        }
+        
+        catch ( JRException e ) {
+        	displayErrorMessageToUser("Ops,Erro ao gerar relat·rio. JRException");
+			e.printStackTrace();
+            
+        }
+        catch ( IOException e ) {
+           
+            displayErrorMessageToUser("Ops,Erro ao gerar relat·rio. IOException");
+			e.printStackTrace();
+        }
+        catch ( Exception e ) {
+           
+            displayErrorMessageToUser("Ops,Erro ao gerar relat·rio. Exception");
+			e.printStackTrace();
+        }
+        
+
+    }
+}

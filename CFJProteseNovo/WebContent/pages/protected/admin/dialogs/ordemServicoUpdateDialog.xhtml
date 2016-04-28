@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+    
+<p:dialog widgetVar="ordemServicoUpdateDialogWidget"
+		id="ordemServicoUpdateDialogId" height="520" width="1350" modal="true"
+		closable="true" draggable="false" resizable="false" header="Alterar Ordem Serviço">
+		
+	<h:form id="ordemServicoUpdateDialogForm" >
+		
+		
+				
+				
+		<h:panelGrid columns="2">
+	    	<h:panelGrid>	 
+	        	<ui:include src="/pages/protected/admin/subCadastro/SubCadastroOS.xhtml" />
+	    	</h:panelGrid>    
+	    	<h:panelGrid>
+	        	<ui:include src="/pages/protected/admin/subCadastro/subCadastroItemOS.xhtml" />
+	        	<p:commandButton  value="Inserir" icon="ui-icon-plus" ajax="true" id="idIserir"
+								actionListener="#{ordemServicoMB.createItemOS}"
+							update=":messageGrowl :ordemServicoUpdateDialogForm:acordetab:datatab 
+							      :ordemServicoUpdateDialogForm:acordion2:painelgrid3 
+							      :ordemServicoUpdateDialogForm:acorde1:precoOS"/>
+	    	</h:panelGrid>
+		</h:panelGrid> 
+		
+		<ui:include src="/pages/protected/admin/subTabela/subTabItemOS2.xhtml" />
+		
+		<h:panelGrid columns="2" > 
+				<p:commandButton value="#{bundle.update}" icon="ui-icon-plus"
+					action="#{ordemServicoMB.updateOrdemServico()}"
+					update=":messageGrowl :ordemServicosForm:ordemServicosTable"
+					oncomplete="closeDialogIfSucess(xhr, status, args, ordemServicoUpdateDialogWidget, 'ordemServicoUpdateDialogId')" />
+				<p:commandButton value="#{bundle.cancel}" icon="ui-icon-cancel" actionListener="#{ordemServicoMB.resetOrdemServico()}"
+					onclick="ordemServicoUpdateDialogWidget.hide();" type="button" />
+		</h:panelGrid>		
+			
+	</h:form>
+		
+</p:dialog>
+	
+</h:body>
+</html>

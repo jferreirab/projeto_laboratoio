@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+	<p:dialog widgetVar="historicoOrdemServicoCreateDialogWidget"
+		id="historicoOrdemServicoCreateDialogId" height="400" width="950" modal="true"
+		closable="true" draggable="false" resizable="false" header="Histórico Ordem Serviço">
+			<h:form id="historicoOrdemServicosForm">
+				<p:dataTable id="historicoOrdemServicosTable" value="#{ordemServicoMB.ordemServico.historicoOrdemServico}" var="historicoOrdemServico" emptyMessage="#{bundle.noRecords}" paginator="true" rows="10"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.historicoOrdemServicoCodigo}" />
+						</f:facet>
+
+						<h:outputText value="#{historicoOrdemServico.id}" />
+					</p:column>
+					
+					<p:column>
+					   <f:facet name="header">
+					    <h:outputText value="#{bundle.ordemServicoCodigo}" />
+					   </f:facet>
+					   <h:outputText value="#{ordemServicoMB.ordemServico.id}" />
+					</p:column>
+					<p:column>
+					   <f:facet name="header">
+					    <h:outputText value="#{bundle.ordemServicoCliente}" />
+					   </f:facet>
+					   <h:outputText value="#{ordemServicoMB.ordemServico.cliente.name}" />
+					</p:column>
+					<p:column>
+					   <f:facet name="header">
+					    <h:outputText value="#{bundle.ordemServicoPaciente}" />
+					   </f:facet>
+					   <h:outputText value="#{ordemServicoMB.ordemServico.paciente}" />
+					</p:column>
+					<p:column>
+					   <f:facet name="header">
+					    <h:outputText value="#{bundle.ordemServicoDsDescricao}" />
+					   </f:facet>
+					   <h:outputText value="#{ordemServicoMB.ordemServico.dsDescricao}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.historicoOrdemServicoDtEntrada}" />
+						</f:facet>
+
+						<h:outputText value="#{historicoOrdemServico.dtEntrada}" >
+						   <f:convertDateTime type="date" dateStyle="short" locale="pt,BR"
+									  timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm" />
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.historicoOrdemServicoDtSaida}" >
+							    
+							</h:outputText>
+						</f:facet>
+
+						<h:outputText value="#{historicoOrdemServico.dtSaida}" >
+						     <f:convertDateTime type="date" dateStyle="short" locale="pt,BR"
+									  timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm" />
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.historicoOrdemServicoPreco}" />
+						</f:facet>
+
+						<h:outputText value="#{historicoOrdemServico.preco}" size="5"
+				                style="text-align:right" lang="pt_BR"/>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.historicoOrdemServicoSituacao}" />
+						</f:facet>
+
+						<h:outputText value="#{historicoOrdemServico.situacao}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.historicoOrdemServicoDtAlteracao}" />
+						</f:facet>
+
+						<h:outputText value="#{historicoOrdemServico.dtAlteracao}" >
+						   <f:convertDateTime type="date" dateStyle="short" locale="pt,BR"
+									  timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm" />
+						</h:outputText>
+					</p:column>
+				</p:dataTable>
+				<p:commandButton value="#{bundle.sair}" icon="ui-icon-cancel" actionListener="#{historicoOrdemServicoMB.resetHistoricoOrdemServico()}"
+					onclick="historicoOrdemServicoCreateDialogWidget.hide();" type="button" />
+			</h:form>
+            
+			
+		</p:dialog>
+</h:body>
+</html>

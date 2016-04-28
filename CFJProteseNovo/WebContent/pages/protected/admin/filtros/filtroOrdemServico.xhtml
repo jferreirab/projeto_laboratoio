@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:accordionPanel id="acordeFiltro">
+       <p:tab title="Filtro Ordem Serviço" id="filtroBusca">		    
+		 <h:panelGrid columns="4">
+		    <h:outputLabel value="#{bundle.ordemServicoCodigo}" />  
+		    <p:inputText  value="#{ordemServicoMB.filtro.id}" style="float: left"></p:inputText>
+		     <p:commandButton actionListener="#{ordemServicoMB.limpaCodigo}" update=":ordemServicosForm:acordeFiltro:filtroBusca" id="limpacodigo"  
+	                     icon="ui-icon-check" title="Limpar Código"/>
+		    <h:outputText value="" />
+		   
+		    <h:outputLabel value="#{bundle.ordemServicoCliente}" />  
+		    <p:autoComplete forceSelection="true" minQueryLength="3" value="#{ordemServicoMB.clienteFiltro}" label="#{bundle.cliente}" var="clienteFiltro"
+			   itemLabel="#{clienteFiltro.name}" itemValue="#{clienteFiltro}" completeMethod="#{ordemServicoMB.completeFiltro}" dropdown="true">
+			   
+			   <p:ajax event="itemSelect" listener="#{ordemServicoMB.clienteBusca}" update=":messageGrowl" />
+			</p:autoComplete>
+			
+			<p:commandButton actionListener="#{ordemServicoMB.limpaCliente}" update=":ordemServicosForm:acordeFiltro:filtroBusca" id="limpaCliente"  
+	                     icon="ui-icon-check" title="Limpar Cliente"/>
+		     <h:outputText value="" /> 
+			
+			<h:outputLabel value="#{bundle.ordemServicoDentista}" />  
+		    <p:autoComplete forceSelection="true" minQueryLength="3" value="#{ordemServicoMB.dentistaFiltro}" label="#{bundle.dentista}" var="dentistaFiltro"
+			   itemLabel="#{dentistaFiltro.nome}" itemValue="#{dentistaFiltro}" completeMethod="#{ordemServicoMB.dentistaClinica}" dropdown="true">
+			</p:autoComplete>
+			
+			<p:commandButton actionListener="#{ordemServicoMB.limpaDentista}" update=":ordemServicosForm:acordeFiltro:filtroBusca" id="limpaDentista"  
+	                     icon="ui-icon-check" title="Limpar Dentista"/>
+		     <h:outputText value="" /> 
+		    
+		    <h:outputLabel  value="#{bundle.ordemServicoPaciente}" /> 
+		    <p:inputText value="#{ordemServicoMB.filtro.paciente}" styleClass="maiusculo"></p:inputText> 
+		    <p:commandButton actionListener="#{ordemServicoMB.limpaPaciente}" update=":ordemServicosForm:acordeFiltro:filtroBusca" id="limpaPaciente"  
+	                     icon="ui-icon-check" title="Limpar Paciente"/>
+		     <h:outputText value="" /> 
+		    
+		    <h:outputLabel value="#{bundle.OrdemServicoPeriodo}" />  
+		    <p:calendar value="#{ordemServicoMB.filtro.dtEntrada}" pattern="dd/mm/yyyy"  style="float: left" showOn="button" >
+	           <f:convertDateTime type="date" dateStyle="short" locales="pt_BR"
+								  timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy" />
+	        </p:calendar>
+	                         
+		    <p:calendar value="#{ordemServicoMB.filtro.dtSaida}" pattern="dd/mm/yyyy" style="float: left" showOn="button" >
+	           <f:convertDateTime type="date" dateStyle="short" locales="pt_BR"
+								  timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy" />
+	        </p:calendar> 
+		    
+		    <p:commandButton actionListener="#{ordemServicoMB.limpaPeriodo}" update=":ordemServicosForm:acordeFiltro:filtroBusca" id="limpaPeriodo"  
+	                     icon="ui-icon-check" title="Limpar Período"/>
+		    
+		     <h:outputText value="#{bundle.ordemServicoSituacao}" />
+			
+			<p:autoComplete forceSelection="true" minQueryLength="3" value="#{ordemServicoMB.situacaoFiltro}" 
+			       label="#{bundle.ordemServicoSituacao}"  var="situacaoFiltro"
+			       itemLabel="#{situacaoFiltro}" itemValue="#{situacaoFiltro}" completeMethod="#{ordemServicoMB.completeSituacao}" dropdown="true">
+			  
+			</p:autoComplete>
+		     
+		    <p:commandButton actionListener="#{ordemServicoMB.limpaSituacao}" update=":ordemServicosForm:acordeFiltro:filtroBusca" id="limpaSituacao"  
+	                     icon="ui-icon-check" title="Limpar Situação"/>
+		    
+		    <h:outputText value="" />
+		    <p:commandButton value="#{bundle.ordemServicoLocaliza}" icon="ui-icon-check" update=":ordemServicosForm:ordemServicosTable"
+				actionListener="#{ordemServicoMB.localizarOrdemServico()}">
+		      
+		    </p:commandButton>
+			<p:commandButton value="#{bundle.create} #{bundle.ordemServico}" icon="ui-icon-plus" update=":ordemServicoCreateDialogForm"
+				actionListener="#{ordemServicoMB.resetOrdemServico()}" onclick="ordemServicoCreateDialogWidget.show();"  />			
+			
+							
+			<p:commandButton rendered="true" id="exportar1" value="#{bundle.ordemServicoRelatorio} "  icon="ui-icon-plus" ajax="false" >    
+			    <p:fileDownload value="#{ordemServicoMB.actionListenerImprimir()}"  />   
+			    <p:tooltip for="exportar1" value="Relatório Por Situação Finalizada"></p:tooltip> 
+			</p:commandButton> 
+		    
+		    </h:panelGrid>
+		
+   </p:tab>
+   </p:accordionPanel>
+</html>			

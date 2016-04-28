@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+
+	
+  <p:accordionPanel id="acorde3">
+       <p:tab title="Ordem Serviço" id="tabOS">
+		<h:panelGrid columns="2" id="panelgrid2">
+		
+		    <h:outputText value="#{bundle.ordemServicoCodigo}" />
+		    <p:inputText value="#{ordemServicoMB.ordemServico.id}" size="50" disabled="true"></p:inputText>
+		    
+			<h:outputText value=" #{bundle.ordemServicoCliente}" />
+			
+			<p:inputText  value="#{ordemServicoMB.ordemServico.cliente.name}" size="50" disabled="true"/>
+			
+			<h:outputText value=" #{bundle.ordemServicoDentista}" />
+			
+			<p:inputText  value="#{ordemServicoMB.ordemServico.dentista.nome}" size="50" disabled="true"/>
+			 
+			<h:outputText value=" #{bundle.ordemServicoPaciente}" />
+			<p:inputText value="#{ordemServicoMB.ordemServico.paciente}" size="50" disabled="true"/>
+			
+	        <h:outputText value=" #{bundle.ordemServicoDsDescricao}" />
+	        <p:inputText value="#{ordemServicoMB.ordemServico.dsDescricao}" size="50" disabled="true"/>
+	               				
+			<h:outputText value=" #{bundle.ordemServicoPreco}" />
+			<p:inputText  value="#{ordemServicoMB.ordemServico.preco}"  size="50"  style="text-align:right" lang="pt_BR" disabled="true" > 
+			  <f:convertNumber pattern="#,##0.00" minFractionDigits="2"  />
+		    </p:inputText>
+	        <h:outputText value=" #{bundle.ordemServicoDtEntrada}" />
+	        <p:inputText value="#{ordemServicoMB.ordemServico.dtEntrada}" size="50" pattern="dd/mm/yyyy HH:mm" required="true" showOn="button" 
+	          label="data de Entrada" disabled="true" >
+	           <f:convertDateTime type="date" dateStyle="short" locales="pt_BR"
+								  timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm" disabled="true" />
+	        </p:inputText>
+	        <h:outputText value=" #{bundle.ordemServicoDtSaida}" />
+	        <p:inputText value="#{ordemServicoMB.ordemServico.dtSaida}" size="50" pattern="dd/mm/yyyy HH:mm" required="true" showOn="button"
+	          label="data de Saida" disabled="true">
+	           <f:convertDateTime type="date" dateStyle="short" locales="pt_BR"
+								  timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm" />
+	        </p:inputText>
+	        <h:outputText value=" #{bundle.ordemServicoSituacao}" />
+			
+			<p:inputText  value="#{ordemServicoMB.ordemServico.situacao}" size="50" disabled="true"/>
+									
+		</h:panelGrid>
+	   </p:tab>
+       </p:accordionPanel>
+
+</html>

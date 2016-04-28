@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<ui:composition template="/pages/protected/templates/master.xhtml">
+		<ui:define name="divMain">
+			<h:form id="clientesForm">
+				<p:dataTable id="clientesTable" value="#{clienteMB.allClientes}" var="cliente" emptyMessage="#{bundle.noRecords}" paginator="true" rows="10"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.clienteNome}" />
+						</f:facet>
+
+						<h:outputText value="#{cliente.name}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.clienteEndereco}" />
+						</f:facet>
+
+						<h:outputText value="#{cliente.endereco}" />
+					</p:column>
+					<p:column>
+						
+						<p:commandButton value="#{bundle.update}" icon="ui-icon-pencil" update=":clienteUpdateDialogForm" onclick="clienteUpdateDialogWidget.show();"   >
+							<f:setPropertyActionListener target="#{clienteMB.cliente}" value="#{cliente}" />
+						</p:commandButton>
+						
+					</p:column>
+
+				</p:dataTable>
+				<p:commandButton value="#{bundle.create} #{bundle.cliente}" icon="ui-icon-plus" update=":clienteCreateDialogForm"
+					actionListener="#{clienteMB.resetCliente()}" onclick="clienteCreateDialogWidget.show();" />
+			</h:form>
+            <ui:include src="/pages/protected/admin/dialogs/clienteCreateDialog.xhtml" />
+            <ui:include src="/pages/protected/admin/dialogs/clienteUpdateDialog.xhtml" />
+			
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

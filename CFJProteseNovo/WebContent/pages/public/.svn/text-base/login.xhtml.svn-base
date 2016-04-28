@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui">
+<h:head>
+  <h:outputStylesheet library="css" name="main.css" />
+</h:head>
+<h:body>
+   <p:panelGrid style="width:100%; height:100%; border: none;" columns="1"   >
+   <p:panel header="#{bundle.loginHello}" style="width:300px; margin-left:auto; margin-right:auto;" >
+	
+	<h:form>
+	
+		
+		<p:panelGrid columns="2"  style="border:none;">
+			<h:outputText  value="#{bundle.loginUserName}" />
+			<p:inputText value="#{loginMB.email}" label="Email" id="email" required="true" size="30">
+				<f:validateLength minimum="4" />
+			</p:inputText>
+			<h:outputText  value="#{bundle.loginPassword}" />
+			
+			
+			<p:password value="#{loginMB.password}" label="Password" id="senha" required="true" autocomplete="off" size="30">
+			  <f:validateLength minimum="4" />
+			</p:password>
+			
+			
+		</p:panelGrid >
+		<h:panelGrid style="margin-left: auto; margin-right: 0px; border: none;"  >
+						<p:commandButton action="#{loginMB.login}" value="Log in" ajax="false" />
+		</h:panelGrid>
+		
+		
+	</h:form>
+	</p:panel>
+	</p:panelGrid>
+</h:body>
+</html>

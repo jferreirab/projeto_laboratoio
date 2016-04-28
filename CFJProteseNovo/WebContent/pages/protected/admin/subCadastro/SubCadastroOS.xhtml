@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+
+	
+  <p:accordionPanel id="acorde1">
+       <p:tab title="Ordem Serviço" id="tabOS">
+		<h:panelGrid columns="2" id="panelgrid2">
+			
+			<h:outputText value="* #{bundle.ordemServicoCliente}" />
+			
+			<p:autoComplete forceSelection="true" minQueryLength="3" value="#{ordemServicoMB.ordemServico.cliente}" label="#{bundle.cliente}" required="true" var="cliente"
+			   itemLabel="#{cliente.name}" itemValue="#{cliente}" completeMethod="#{ordemServicoMB.complete}" dropdown="true" styleClass="maiusculo" size="40">
+			  
+               <p:ajax event="itemSelect" listener="#{ordemServicoMB.clienteBusca}" update=":messageGrowl" />              
+			 </p:autoComplete>				
+			
+			<h:outputText value="* #{bundle.ordemServicoDentista}" />
+			
+			<p:autoComplete forceSelection="true" minQueryLength="3" value="#{ordemServicoMB.ordemServico.dentista}" label="#{bundle.dentista}" required="true" var="dentista"
+			itemLabel="#{dentista.nome}" itemValue="#{dentista}" completeMethod="#{ordemServicoMB.dentistaClinica}" dropdown="true" styleClass="maiusculo" size="40" update=":messageGrowl">
+			  
+			 </p:autoComplete>
+			
+			<h:outputText value="* #{bundle.ordemServicoPaciente}" />
+			<p:inputText value="#{ordemServicoMB.ordemServico.paciente}" required="true" label="#{bundle.ordemServicoPaciente}" size="40" styleClass="maiusculo" >
+			</p:inputText>
+			
+				
+			
+	        <h:outputText value="#{bundle.ordemServicoDsDescricao}" />
+	        <p:inputText value="#{ordemServicoMB.ordemServico.dsDescricao}"  label="#{bundle.ordemServicoDsDescricao}" style=" width : 462px;" styleClass="maiusculo">
+	        </p:inputText>
+	        
+	        				
+			<h:outputText value="#{bundle.ordemServicoPreco}" />
+			<p:inputText id="precoOS" value="#{ordemServicoMB.ordemServico.preco}"  label="#{bundle.ordemServicoPreco}" size="10"
+			 style="text-align:right" lang="pt_BR" > 
+			  <f:convertNumber pattern="#,##0.00" minFractionDigits="2"  />
+		    </p:inputText>
+	        <h:outputText value="* #{bundle.ordemServicoDtEntrada}" />
+	        <p:calendar value="#{ordemServicoMB.ordemServico.dtEntrada}" pattern="dd/mm/yyyy HH:mm" required="true" showOn="button" 
+	          label="data de Entrada" >
+	           <f:convertDateTime type="date" dateStyle="short" locales="pt_BR"
+								  timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm" />
+	        </p:calendar>
+	        <h:outputText value="* #{bundle.ordemServicoDtSaida}" />
+	        <p:calendar value="#{ordemServicoMB.ordemServico.dtSaida}" pattern="dd/mm/yyyy HH:mm" required="true" showOn="button"
+	          label="data de Saida" >
+	           <f:convertDateTime type="date" dateStyle="short" locales="pt_BR"
+								  timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm" />
+	        </p:calendar>
+	        <h:outputText value="* #{bundle.ordemServicoSituacao}" />
+			
+			<p:autoComplete forceSelection="true" minQueryLength="3" value="#{ordemServicoMB.ordemServico.situacao}" 
+			       label="#{bundle.ordemServicoSituacao}" required="true" var="situacao"
+			       itemLabel="#{situacao}" itemValue="#{situacao}" completeMethod="#{ordemServicoMB.completeSituacao}" dropdown="true">
+			  
+			 </p:autoComplete>
+						
+		</h:panelGrid>
+	   </p:tab>
+       </p:accordionPanel>
+
+</html>

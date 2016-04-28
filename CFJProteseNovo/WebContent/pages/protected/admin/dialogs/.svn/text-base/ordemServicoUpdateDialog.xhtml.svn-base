@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+    
+	<p:dialog widgetVar="ordemServicoUpdateDialogWidget"
+		id="ordemServicoUpdateDialogId" height="300" width="600" modal="true"
+		closable="true" draggable="false" resizable="false" header="Alterar Ordem Serviço">
+		
+		<h:form id="ordemServicoUpdateDialogForm" prependId="false">
+		
+			<h:panelGrid columns="2">
+				<h:outputText value="* #{bundle.ordemServicoCliente}" />
+				<p:inputText value="#{ordemServicoMB.ordemServico.cliente.name}" required="true" label="#{bundle.ordemServicoCliente}" disabled="True" size="40" styleClass="maiusculo">
+				   <f:validateLength minimum="4" />
+				</p:inputText>
+				
+				<h:outputText value="* #{bundle.ordemServicoPaciente}" />
+				<p:inputText  value="#{ordemServicoMB.ordemServico.paciente}" required="true" label="#{bundle.ordemServicoPaciente}" size="40" styleClass="maiusculo">
+				</p:inputText>
+				
+		        <h:outputText value="* #{bundle.ordemServicoDsDescricao}" />
+		        <p:inputText  value="#{ordemServicoMB.ordemServico.dsDescricao}" required="true" label="#{bundle.ordemServicoDsDescricao}" size="70" styleClass="maiusculo">
+		        </p:inputText>
+				
+		        <h:outputText value="* #{bundle.ordemServicoPreco}" />
+				<h:inputText value="#{ordemServicoMB.ordemServico.preco}" required="true" label="#{bundle.ordemServicoPreco}" size="5"
+				 style="text-align:right" lang="pt_BR" >
+				      <f:convertNumber pattern="#,##0.00" minFractionDigits="2"  />
+				</h:inputText>
+		        
+		        <h:outputText value="* #{bundle.ordemServicoDtEntrada}" />
+		        <p:calendar value="#{ordemServicoMB.ordemServico.dtEntrada}" pattern="dd/mm/yyyy HH:mm" showOn="button">
+		           <f:convertDateTime type="date" dateStyle="short" locale="pt,BR"
+									  timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm" />
+		        </p:calendar>
+		        <h:outputText value="* #{bundle.ordemServicoDtSaida}" />
+		        <p:calendar value="#{ordemServicoMB.ordemServico.dtSaida}" pattern="dd/mm/yyyy HH:mm" showOn="button" >
+		           <f:convertDateTime type="date" dateStyle="short" locale="pt,BR"
+									  timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm" />
+		        </p:calendar>
+		        <h:outputText value="* #{bundle.ordemServicoSituacao}" />
+				<p:autoComplete forceSelection="true" minQueryLength="3" value="#{ordemServicoMB.ordemServico.situacao}" 
+				       label="#{bundle.ordemServicoSituacao}" required="true" var="situacao"
+				       itemLabel="#{situacao}" itemValue="#{situacao}" completeMethod="#{ordemServicoMB.completeSituacao}" dropdown="true">
+				  
+				 </p:autoComplete>
+				<p:commandButton value="#{bundle.update}" icon="ui-icon-plus"
+					action="#{ordemServicoMB.updateOrdemServico()}"
+					update=":messageGrowl :ordemServicosForm:ordemServicosTable"
+					oncomplete="closeDialogIfSucess(xhr, status, args, ordemServicoUpdateDialogWidget, 'ordemServicoUpdateDialogId')" />
+				<p:commandButton value="#{bundle.cancel}" icon="ui-icon-cancel" actionListener="#{ordemServicoMB.resetOrdemServico()}"
+					onclick="ordemServicoUpdateDialogWidget.hide();" type="button" />
+			</h:panelGrid>
+			
+		</h:form>
+		
+	</p:dialog>
+	
+</h:body>
+</html>

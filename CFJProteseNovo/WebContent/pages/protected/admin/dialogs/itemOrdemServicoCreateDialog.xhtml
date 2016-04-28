@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<p:dialog widgetVar="itemOrdemServicoCreateDialogWidget"
+		id="itemOrdemServicoCreateDialogId" height="150" width="500" modal="false"
+		closable="true" draggable="false" resizable="false" header="Novo Item">
+		<h:form id="itemOrdemServicoCreateDialogForm" >
+			<h:panelGrid columns="2">
+				<h:outputText value="* Serviço" />
+				  
+				  <p:autoComplete forceSelection="true" minQueryLength="3" value="#{ordemServicoMB.servico}" label="#{bundle.servico}" required="true" var="servico"
+				       itemLabel="#{servico.dsDescricao}" itemValue="#{servico}" completeMethod="#{ordemServicoMB.completeServico}" dropdown="true" styleClass="maiusculo" size="40">
+				  
+				 </p:autoComplete>
+				 <h:outputText value="Cor" />
+				 <p:autoComplete forceSelection="true" minQueryLength="3" value="#{ordemServicoMB.cor}" label="Cor" required="true" var="cor"
+				       itemLabel="#{cor.nome}" itemValue="#{cor}" completeMethod="#{ordemServicoMB.completeCor}" dropdown="true" styleClass="maiusculo" size="40">
+				  
+				 </p:autoComplete>					
+		         <h:outputText value="Dente" />
+		         <h:outputText value="" />
+		         <h:outputText value="Quantidade" />
+		         <p:inputText value="#{ordemServicoMB.itemOrdemServico.quantidade}" required="true" 
+		                 label="Quantidade" size="10"
+						 style="text-align:right" lang="pt_BR" > 
+						  <f:convertNumber pattern="#,##0" minFractionDigits="2"  />
+			     </p:inputText>
+				<p:commandButton value="#{bundle.create}" icon="ui-icon-plus"
+					action="#{ordemServicoMB.createItemOS()}"
+					update=":messageGrowl :ordemServicoCreateDialogForm:acordetab:datatab"
+					oncomplete="closeDialogIfSucess(xhr, status, args, itemOrdemServicoCreateDialogWidget, 'itemOrdemServicoCreateDialogId')" />
+				<p:commandButton value="#{bundle.cancel}" icon="ui-icon-cancel" actionListener="#{ordemServicoMB.resetItemOrdemServico()}"
+					onclick="itemOrdemServicoCreateDialogWidget.hide();" type="button" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

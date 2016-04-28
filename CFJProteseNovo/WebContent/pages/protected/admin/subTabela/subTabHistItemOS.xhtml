@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+<h:body>
+	
+			
+		<p:accordionPanel id="acordetabhist">
+		    <p:tab title="Historico Items Ordem Serviço" id="tabHistItemOS"> 
+				<h:panelGrid id="acordionHist" >
+				  				  				   
+				   <p:dataTable  var="historicoItemOrdemServico"  value="#{ordemServicoMB.historicoOrdemServico.historicoItemOrdemServicos}" id="datatabHist" editable="true">
+				      <p:column>
+				          <f:facet name="header">
+				              <h:outputText value="Código" />
+				          </f:facet>     
+				          
+				          <h:outputText value="#{historicoItemOrdemServico.id}" />
+				       </p:column>
+				        <p:column>
+				          <f:facet name="header">
+				              <h:outputText value="Cód. Item OS" />
+				          </f:facet>     
+				          
+				          <h:outputText value="#{historicoItemOrdemServico.idItemOS}" />
+				       </p:column>
+				       <p:column>
+				          <f:facet name="header">
+				              <h:outputText value="Serviço" />
+				          </f:facet>     
+				          
+				          <h:outputText value="#{historicoItemOrdemServico.servico.dsDescricao}" />
+				       </p:column>
+				       <p:column>
+				          <f:facet name="header">
+				              <h:outputText value="Cor" />
+				          </f:facet>     
+				          
+				          <h:outputText value="#{historicoItemOrdemServico.cor.nome}" />
+				       </p:column>
+				       <p:column>
+				          <f:facet name="header">
+				              <h:outputText value="Dente" />
+				          </f:facet>     
+				          
+				          <h:outputText value="#{historicoItemOrdemServico.dentesLista}" />
+				       </p:column>
+				        <p:column>
+				          <f:facet name="header">
+				              <h:outputText value="Quantidade" />
+				          </f:facet>     
+				          
+				          <h:outputText value="#{historicoItemOrdemServico.quantidade}" />
+				       </p:column>
+				       <p:column>
+				          <f:facet name="header">
+				              <h:outputText value="Vr. Unitario" />
+				          </f:facet>     
+				          
+				          <h:outputText value="#{historicoItemOrdemServico.precoUnitario}" />
+				       </p:column>
+				       <p:column>
+				          <f:facet name="header">
+				              <h:outputText value="Vr. Total" />
+				          </f:facet>     
+				          
+				          <h:outputText value="#{historicoItemOrdemServico.precoTotal}" />
+				       </p:column>
+				       <p:column>
+				          <f:facet name="header">
+				              <h:outputText value="Observação" />
+				          </f:facet>     
+				          
+				          <h:outputText value="#{historicoItemOrdemServico.observacao}" />
+				       </p:column>
+				       
+					  <p:column>
+							<f:facet name="header">  
+								<h:outputText value="Dt. Cadastro" />
+							</f:facet>
+							<h:outputText  value="#{historicoItemOrdemServico.dtCadastro}"  disabled="true">
+									   <f:convertDateTime type="date" dateStyle="short" locales="pt_BR"
+												  timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm" />
+					   		</h:outputText>	
+					  </p:column>
+					  
+					  <p:column>
+							<f:facet name="header">  
+								<h:outputText value="Dt. Alteração" />
+							</f:facet>
+							<h:outputText  value="#{historicoItemOrdemServico.dtAlteracao}"  disabled="true">
+									   <f:convertDateTime type="date" dateStyle="short" locales="pt_BR"
+												  timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm" />
+					   		</h:outputText>	
+					  </p:column>
+				   </p:dataTable>
+				   
+				</h:panelGrid>	
+			</p:tab>
+		</p:accordionPanel>
+			
+		
+</h:body>
+</html>

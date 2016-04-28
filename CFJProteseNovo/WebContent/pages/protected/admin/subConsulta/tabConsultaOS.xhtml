@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+    <h:body>
+         <p:tab title="Ordem Serviço" id="consultaOS">	
+			<h:panelGrid id="acordionConsltaOS"  columns="2" >
+					<p:dataTable id="ordemServicosTable" value="#{ordemServicoMB.allOrdemServicos}" var="ordemServico" emptyMessage="#{bundle.noRecords}" paginator="true" rows="10"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15" >
+							
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="#{bundle.ordemServicoCodigo}" />
+								</f:facet>
+				
+								<h:outputText value="#{ordemServico.id}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="#{bundle.ordemServicoCliente}" />
+								</f:facet>
+				
+								<h:outputText value="#{ordemServico.cliente.name}" />
+							</p:column>
+							
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="#{bundle.ordemServicoDentista}" />
+								</f:facet>
+				
+								<h:outputText value="#{ordemServico.dentista.nome}" />
+							</p:column>
+							
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="#{bundle.ordemServicoPaciente}" />
+								</f:facet>
+				
+								<h:outputText value="#{ordemServico.paciente}" />
+							</p:column>
+							
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="#{bundle.ordemServicoDsDescricao}" />
+								</f:facet>
+				
+								<h:outputText value="#{ordemServico.dsDescricao}" />
+							</p:column>
+				
+							
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="#{bundle.ordemServicoDtEntrada}" />
+								</f:facet>
+				
+								<h:outputText value="#{ordemServico.dtEntrada}" >
+								   <f:convertDateTime type="date" dateStyle="short" locales="pt_BR"
+											  timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm" />
+								</h:outputText>
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="#{bundle.ordemServicoDtSaida}" >
+									    
+									</h:outputText>
+								</f:facet>
+				
+								<h:outputText value="#{ordemServico.dtSaida}" >
+								     <f:convertDateTime type="date" dateStyle="short" locales="pt_BR"
+											  timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm" />
+								</h:outputText>
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="#{bundle.ordemServicoPreco}" />
+								</f:facet>
+				
+								<h:outputText value="#{ordemServico.preco}" size="5"
+						                style="text-align:right" locales="pt_BR"/>
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="#{bundle.ordemServicoSituacao}" />
+								</f:facet>
+				
+								<h:outputText value="#{ordemServico.situacao}" />
+							</p:column>
+							
+							<p:column>
+								
+								<p:commandButton value="Consulta" icon="ui-icon-pencil" update=":consultaOrdemServicoDialogForm"
+								     onclick="consultaOrdemServicoDialogWidget.show();"  
+								    	       >
+									<f:setPropertyActionListener target="#{ordemServicoMB.ordemServico}" value="#{ordemServico}" />
+									
+								</p:commandButton>
+								
+							</p:column>
+							
+							<p:column>
+								
+								<p:commandButton value="#{bundle.update}" icon="ui-icon-pencil" update=":ordemServicoUpdateDialogForm"
+								     onclick="ordemServicoUpdateDialogWidget.show();"  
+								    	       >
+									<f:setPropertyActionListener target="#{ordemServicoMB.ordemServico}" value="#{ordemServico}" />
+									
+								</p:commandButton>
+								
+							</p:column>
+							
+							<p:column>
+								
+								<p:commandButton value="#{bundle.historico}" icon="ui-icon-pencil" update=":historicoOrdemServicosForm"
+								     onclick="historicoOrdemServicoCreateDialogWidget.show();"  >
+								    	
+									<f:setPropertyActionListener target="#{ordemServicoMB.ordemServico}" value="#{ordemServico}" />
+																
+								</p:commandButton>
+								
+							</p:column>
+				
+						</p:dataTable>
+				</h:panelGrid>	
+			</p:tab>			
+       </h:body>
+</html>			

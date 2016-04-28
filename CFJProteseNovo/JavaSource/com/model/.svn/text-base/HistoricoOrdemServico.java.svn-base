@@ -1,0 +1,101 @@
+package com.model;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
+public class HistoricoOrdemServico implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	
+	@ManyToOne
+	@JoinColumn(name="ordem_Servico_id")
+	private OrdemServico ordemServico;
+	private Date dtEntrada;
+	private Date dtSaida;
+	private Situacao situacao;
+	private BigDecimal preco;
+	private Date dtAlteracao;
+	
+	private int userAlteracao;
+	
+	public Date getDtAlteracao() {
+		return dtAlteracao;
+	}
+	public void setDtAlteracao(Date dtAlteracao) {
+		this.dtAlteracao = dtAlteracao;
+	}
+	
+	public int getIdUserAlteracao() {
+		return userAlteracao;
+	}
+	public void setIdUserAlteracao(int idUserAlteracao) {
+		this.userAlteracao = idUserAlteracao;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public OrdemServico getOrdemServico() {
+		return ordemServico;
+	}
+	public void setOrdemServico(OrdemServico ordemServico) {
+		this.ordemServico = ordemServico;
+	}
+	public Date getDtEntrada() {
+		return dtEntrada;
+	}
+	public void setDtEntrada(Date dtEntrada) {
+		this.dtEntrada = dtEntrada;
+	}
+	public Date getDtSaida() {
+		return dtSaida;
+	}
+	public void setDtSaida(Date dtSaida) {
+		this.dtSaida = dtSaida;
+	}
+	public Situacao getSituacao() {
+		return situacao;
+	}
+	public void setSituacao(Situacao situacao) {
+		this.situacao = situacao;
+	}
+	public BigDecimal getPreco() {
+		return preco;
+	}
+	public void setPreco(BigDecimal preco) {
+		this.preco = preco;
+	}
+	
+	@Override
+	public int hashCode() {
+		return id;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof HistoricoOrdemServico) {
+			HistoricoOrdemServico historicoOrdemServico = (HistoricoOrdemServico) obj;
+			return historicoOrdemServico.getId() == id;
+		}
+
+		return false;
+	}
+	
+	
+
+}

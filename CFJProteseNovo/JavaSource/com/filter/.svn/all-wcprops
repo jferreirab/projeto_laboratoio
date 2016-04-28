@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/CFJProtese/!svn/ver/4/branches/CFJProtese-Branch-01/JavaSource/com/filter
+END
+AbstractFilter.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/CFJProtese/!svn/ver/4/branches/CFJProtese-Branch-01/JavaSource/com/filter/AbstractFilter.java
+END
+DefaultUserPagesFilter.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/CFJProtese/!svn/ver/4/branches/CFJProtese-Branch-01/JavaSource/com/filter/DefaultUserPagesFilter.java
+END
+LoginCheckFilter.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/CFJProtese/!svn/ver/4/branches/CFJProtese-Branch-01/JavaSource/com/filter/LoginCheckFilter.java
+END
+AdminPagesFilter.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/CFJProtese/!svn/ver/4/branches/CFJProtese-Branch-01/JavaSource/com/filter/AdminPagesFilter.java
+END

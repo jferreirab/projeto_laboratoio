@@ -1,0 +1,94 @@
+package com.facade;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+
+import com.dao.OrdemServicoDAO;
+
+import com.model.OrdemServico;
+import com.model.RelatorioOrdemServico;
+import com.model.Situacao;
+
+
+public class RelatorioOrdemServicoFacade implements Serializable {
+	
+	 private static final long serialVersionUID = 1L;
+		
+	// private RelatorioOrdemServicoDAO relatorioOrdemServicoDAO = new RelatorioOrdemServicoDAO();
+	 private OrdemServicoDAO ordemServicoDAO = new OrdemServicoDAO();
+	 
+	 public Collection<RelatorioOrdemServico> recuperaOrdemServico(OrdemServico ordemServico) {
+			
+			//int id = ordemServico.getId();
+			ordemServicoDAO.beginTransaction();
+					
+			Session session = (Session) ordemServicoDAO.getEm().getDelegate();
+			 
+			Criteria crit = session.createCriteria(OrdemServico.class);
+	        
+			if (ordemServico != null){
+				
+				if (ordemServico.getCliente() != null && ordemServico.getCliente().getId() != 0 ){
+					Criterion Criterion = Restrictions.eq( "cliente",  ordemServico.getCliente());
+					crit.add( Criterion );
+				}
+				if(ordemServico.getId() != 0 ){
+					Criterion Criterion = Restrictions.eq( "id",  ordemServico.getId());
+					crit.add( Criterion );
+					
+				}
+				if(ordemServico.getDtEntrada() != null ){
+					Criterion diaIni = Restrictions.ge( "dtEntrada", ordemServico.getDtEntrada() );
+					crit.add( diaIni );
+				}
+				if(ordemServico.getDtSaida() != null){
+					Criterion diaFim = Restrictions.le( "dtSaida", ordemServico.getDtSaida() );
+					crit.add(diaFim);
+				}
+				if(ordemServico.getPaciente() != null && ordemServico.getPaciente().compareTo("") != 0){
+					Criterion paciCriterion  = Restrictions.ilike("paciente", ordemServico.getPaciente());
+					crit.add(paciCriterion);
+				}
+				/*if(ordemServico.getSituacao()!= null ){
+					Criterion situacaoCriterion  = Restrictions.eq("situacao", ordemServico.getSituacao());
+					crit.add(situacaoCriterion);
+				}*/
+				Criterion situacaoCriterion  = Restrictions.eq("situacao", Situacao.FINALIZADA);
+				crit.add(situacaoCriterion);
+			}
+		    
+
+		   // crit.addOrder( Order.asc( "dtEntrada" ) );
+		    crit.addOrder(Order.asc("cliente"));
+		    
+		    
+			Collection<RelatorioOrdemServico> relatorioOrdemServicos =  new ArrayList<RelatorioOrdemServico>(); 
+		    
+		    @SuppressWarnings("unchecked")
+			List<OrdemServico> result =  crit.list(); 
+		    for (OrdemServico ordemServico2 : result){
+		    	RelatorioOrdemServico rel = new RelatorioOrdemServico();
+		    	rel.setClienteId(ordemServico2.getCliente().getId());
+		    	rel.setClienteNome(ordemServico2.getCliente().getName());
+		    	rel.setDsDescricao(ordemServico2.getDsDescricao());
+		    	rel.setDtSaida(ordemServico2.getDtSaida());
+		    	rel.setOsId(ordemServico2.getId());
+		    	rel.setPaciente(ordemServico2.getPaciente());
+		    	rel.setPreco(ordemServico2.getPreco());
+		    	relatorioOrdemServicos.add(rel);
+		    	
+		    }
+		    
+			
+			ordemServicoDAO.closeTransaction();
+			return relatorioOrdemServicos;
+		}
+}

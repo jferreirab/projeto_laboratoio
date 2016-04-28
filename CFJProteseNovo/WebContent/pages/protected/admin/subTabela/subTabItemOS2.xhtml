@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+<h:body>
+	
+			
+		<p:accordionPanel id="acordetab">
+		    <p:tab title="Items Ordem Serviço" id="tabItemOS"> 
+				<h:panelGrid id="acordion" columns="2" >
+				  				  				   
+				   <p:dataTable  var="itemOrdemServico"  value="#{ordemServicoMB.ordemServico.itemOrdemServico}" id="datatab" editable="true">
+				      
+					  <p:ajax event="rowEdit" listener="#{ordemServicoMB.onEdit}" update=":messageGrowl :ordemServicoUpdateDialogForm:acordetab:datatab" />  
+        			  
+				     
+				      <p:column headerText="Código" >  
+				          <p:cellEditor>  
+				              <f:facet name="output">  
+				                  <h:outputText value="#{itemOrdemServico.id}" />  
+				              </f:facet>  
+				              <f:facet name="input">  
+				                  <p:inputText value="#{itemOrdemServico.id}" disabled="true" style="width:60%" />  
+				              </f:facet>  
+				          </p:cellEditor>  
+				      </p:column>
+				      
+				      <p:column headerText="Serviço" >  
+				          <p:cellEditor>  
+				              <f:facet name="output">  
+				                  <h:outputText value="#{itemOrdemServico.servico.dsDescricao}"  size="30" />  
+				              </f:facet>  
+				              <f:facet name="input">  
+				                  <p:autoComplete forceSelection="true" minQueryLength="3" value="#{itemOrdemServico.servico}" label="#{bundle.servico}"  var="servico"
+				                      itemLabel="#{servico.dsDescricao}" itemValue="#{servico}" completeMethod="#{ordemServicoMB.completeServico}" dropdown="true" styleClass="maiusculo" size="30">
+				  
+				                  </p:autoComplete>  
+				                  
+				              </f:facet>  
+				          </p:cellEditor>  
+				      </p:column>
+				      
+				      <p:column headerText="Cor" >  
+				          <p:cellEditor>  
+				              <f:facet name="output">  
+				                  <h:outputText value="#{itemOrdemServico.cor.nome}" />  
+				              </f:facet>  
+				              <f:facet name="input">  
+				                  <p:autoComplete forceSelection="true" minQueryLength="3" value="#{itemOrdemServico.cor}" label="Cor" var="cor"
+								       itemLabel="#{cor.nome}" itemValue="#{cor}" completeMethod="#{ordemServicoMB.completeCor}" dropdown="true" styleClass="maiusculo" size="10">
+								  
+								  </p:autoComplete>  
+				                  
+				              </f:facet>  
+				          </p:cellEditor>  
+				      </p:column>				      
+				      
+				      <p:column headerText="Dente" >  
+				          <p:cellEditor>  
+				              <f:facet name="output">  
+				                  <h:outputText value="#{itemOrdemServico.dentesLista}" />  
+				              </f:facet>  
+				              <f:facet name="input">  
+				                  <p:selectCheckboxMenu value="#{itemOrdemServico.listadentes}" label="Dentes" filter="true" 
+				                        filterText="Filter" filterMatchMode="startsWith" panelStyle="width:220px" 
+				                        >  
+			        					<f:selectItems value="#{ordemServicoMB.dentes}" />  
+			        					<p:ajax  listener="#{ordemServicoMB.listaDentesString2(itemOrdemServico)}" 
+			        					
+			        					update="precoTotalTab2 :ordemServicoUpdateDialogForm:acorde1:precoOS
+						 		   		                :ordemServicoCreateDialogForm:acorde1:precoOS
+						 		   		         quantidadeDente atualizaDente"        /> 
+				                  </p:selectCheckboxMenu>
+				                   <p:inputText id="atualizaDente" value="#{itemOrdemServico.dentesLista}" disabled="true" size="50"/>
+				              </f:facet>  
+				          </p:cellEditor>  
+				      </p:column> 
+				      
+				      <p:column headerText="Quantidade" >  
+				          <p:cellEditor>  
+				              <f:facet name="output">  
+				                  <h:outputText value="#{itemOrdemServico.quantidade}" />  
+				              </f:facet>  
+				              <f:facet name="input">  
+				                  <p:inputText id="quantidadeDente" value="#{itemOrdemServico.quantidade}"  label="Quantidade" size="5"
+								   		 style="text-align:right" lang="pt_BR" > 
+						 		   		 <f:convertNumber pattern="#,##0" minFractionDigits="0"/> 
+						 		   		 <p:ajax update="precoTotalTab2 :ordemServicoUpdateDialogForm:acorde1:precoOS
+						 		   		                :ordemServicoCreateDialogForm:acorde1:precoOS"  
+                             					listener="#{ordemServicoMB.calculaPrecoFinal(itemOrdemServico)}" />
+						  		  </p:inputText> 
+				              </f:facet>  
+				          </p:cellEditor>  
+				      </p:column>
+				      
+				      <p:column headerText="Vr. Unitario" >  
+				          <p:cellEditor>  
+				              <f:facet name="output">  
+				                  <h:outputText value="#{itemOrdemServico.precoUnitario}" />  
+				              </f:facet>  
+				              <f:facet name="input">  
+				                  <p:inputText value="#{itemOrdemServico.precoUnitario}"  label="Preço Unitario" size="8"
+								      style="text-align:right" lang="pt_BR" > 
+								  	  <f:convertNumber pattern="#,##0.00" minFractionDigits="2"  />
+								  	  <p:ajax update="precoTotalTab2 :ordemServicoUpdateDialogForm:acorde1:precoOS
+								  	                 :ordemServicoCreateDialogForm:acorde1:precoOS"  
+                            				 listener="#{ordemServicoMB.calculaPrecoFinal(itemOrdemServico)}" />
+							      </p:inputText>  
+				              </f:facet>  
+				          </p:cellEditor>  
+				      </p:column>
+				       
+				      <p:column headerText="Vr. Total" >  
+				          <p:cellEditor>  
+				              <f:facet name="output">  
+				                  <h:outputText id="precoTotalTab" value="#{itemOrdemServico.precoTotal}" />  
+				              </f:facet>  
+				              <f:facet name="input">  
+				                  <p:inputText id="precoTotalTab2" value="#{itemOrdemServico.precoTotal}"  label="Preço Total" size="8"
+								       lang="pt_BR" disabled="true" > 
+								  	  <f:convertNumber pattern="#,##0.00" minFractionDigits="2"  />
+							      </p:inputText>  
+				              </f:facet>  
+				          </p:cellEditor>  
+				      </p:column> 
+				      
+				      <p:column headerText="Observação" >  
+				          <p:cellEditor>  
+				              <f:facet name="output">  
+				                  <h:outputText value="#{itemOrdemServico.observacao}" styleClass="maiusculo" />  
+				              </f:facet>  
+				              <f:facet name="input">  
+				                  <p:inputText value="#{itemOrdemServico.observacao}" size="40" label="Observação" styleClass="maiusculo"  > 
+								  	  
+							      </p:inputText>  
+				              </f:facet>  
+				          </p:cellEditor>  
+				      </p:column>   
+				       
+				      <p:column style="width:6%">  
+				         <p:rowEditor />  
+				      </p:column> 
+				      <p:column>
+				        <p:commandButton value="#{Delete}" icon="ui-icon-trash"
+							action="#{ordemServicoMB.deleteItemOS(itemOrdemServico)}"
+							update=":ordemServicoUpdateDialogForm
+							        :ordemServicoCreateDialogForm"
+							
+							 />
+				      </p:column> 
+				       
+				   </p:dataTable>
+				   
+				</h:panelGrid>	
+			</p:tab>
+		</p:accordionPanel>
+			
+		
+</h:body>
+</html>

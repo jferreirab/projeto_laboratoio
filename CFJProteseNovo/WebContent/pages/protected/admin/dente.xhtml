@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<ui:composition template="/pages/protected/templates/master.xhtml">
+	 <h:outputScript name="locale-primefaces.js" library="js" />
+		<ui:define name="divMain">
+			<h:form id="dentesForm">
+				<p:dataTable id="dentesTable" value="#{denteMB.allDentes}" var="dente" emptyMessage="#{bundle.noRecords}" paginator="true" rows="10"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.denteCodigo}" />
+						</f:facet>
+
+						<h:outputText value="#{dente.id}" size="10" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.denteDescricao}" />
+						</f:facet>
+
+						<h:outputText value="#{dente.nome}" styleClass="maiusculo">
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.denteDtDente}" />
+						</f:facet>
+
+						<h:outputText value="#{dente.dtCadastro}" >
+						  <f:convertDateTime type="date" dateStyle="short" locales="pt_BR"
+									  timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm" />
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.denteDtAlteracao}" />
+						</f:facet>
+
+						<h:outputText value="#{dente.dtAlteracao}" >
+						  <f:convertDateTime type="date" dateStyle="short" locales="pt_BR"
+									  timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm" />
+						</h:outputText>
+					</p:column>
+					<p:column>
+						
+						<p:commandButton value="#{bundle.update}" icon="ui-icon-pencil" update=":denteUpdateDialogForm" onclick="denteUpdateDialogWidget.show();"   >
+							<f:setPropertyActionListener target="#{denteMB.dente}" value="#{dente}" />
+						</p:commandButton>
+						
+					</p:column>
+
+				</p:dataTable>
+				<p:commandButton value="#{bundle.create} #{bundle.dente}" icon="ui-icon-plus" update=":denteCreateDialogForm"
+					actionListener="#{denteMB.resetDente()}" onclick="denteCreateDialogWidget.show();" />
+			</h:form>
+            <ui:include src="/pages/protected/admin/dialogs/denteCreateDialog.xhtml" />
+            <ui:include src="/pages/protected/admin/dialogs/denteUpdateDialog.xhtml" />
+			
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

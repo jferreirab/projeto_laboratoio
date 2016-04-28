@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<p:dialog widgetVar="dentistaUpdateDialogWidget"
+		id="dentistaUpdateDialogId" height="150" width="500" modal="true"
+		closable="true" draggable="false" resizable="false" header="Alterar Dentista">
+		<h:form id="dentistaUpdateDialogForm" prependId="false">
+			<h:panelGrid columns="2">
+				<h:outputText value="* Nome" />
+				<h:inputText value="#{dentistaMB.dentista.nome}" required="true" label="Nome"  
+				  styleClass="maiusculo" size="70">
+					
+				</h:inputText>
+				
+				<h:outputText value=" CRO" />
+				<p:inputText value="#{dentistaMB.dentista.cro}"  label="Nome"
+				     styleClass="maiusculo" size="70">
+				    
+				</p:inputText>
+				
+				<h:outputText value="* #{bundle.ordemServicoCliente}" />
+			
+				<p:autoComplete forceSelection="true" minQueryLength="3" value="#{dentistaMB.dentista.cliente}" label="#{bundle.cliente}" required="true" var="cliente"
+					itemLabel="#{cliente.name}" itemValue="#{cliente}" completeMethod="#{dentistaMB.complete}" dropdown="true" styleClass="maiusculo" size="40">
+			  
+			 	</p:autoComplete>
+				
+				<p:commandButton value="#{bundle.update}" icon="ui-icon-plus"
+					action="#{dentistaMB.updateDentista()}"
+					update=":messageGrowl :dentistasForm:dentistasTable"
+					oncomplete="closeDialogIfSucess(xhr, status, args, dentistaUpdateDialogWidget, 'dentistaUpdateDialogId')" />
+				<p:commandButton value="#{bundle.cancel}" icon="ui-icon-cancel" actionListener="#{dentistaMB.resetDentista()}"
+					onclick="dentistaUpdateDialogWidget.hide();" type="button" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

@@ -1,0 +1,107 @@
+#topMessage {
+	vertical-align: middle;
+}
+
+html {
+	overflow: hidden;
+}
+
+body {
+	overflow: hidden;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+}
+
+h1 {
+	color: black;
+}
+
+a:link,a:visited,a:hover,a:active {
+	color: black;	
+}
+
+.menuButton{
+	font-weight: bold;
+	font-size: 20px;
+	top:10px;
+	bottom: 10px;
+}
+
+#divTop {
+	padding: 0;
+	padding-left: 10px;
+	margin: 0;
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	right: 5px;
+	height: 60px;
+	overflow: hidden;
+	background: #92CDAE;
+	border: 1px solid darkGray;	
+	font-size: 7px;
+}
+
+#divLeft {
+	padding: 0;
+	padding-left: 10px;
+	margin: 0;
+	position: absolute;
+	top: 66px;
+	left: 3px;
+	bottom: 2px;
+	overflow: auto;
+	width: 170px;
+	border: thin solid lightGray;
+	background: #92CDAE;
+	font-size: 35px;
+}
+
+#divMain {
+	padding: 0;
+	padding-top: 0px;
+	margin: 0;
+	position: absolute;
+	top: 64px;
+	left: 186px;
+	right: 5px;
+	bottom: 2px;
+	overflow: auto;
+	border: thin solid lightGray;
+	background: #fefeef;
+	font-size: 10px;
+}
+
+ .ui-widget,.ui-widget .ui-widget {
+     font-size: 12px !important;
+}
+ 
+ .maiusculo {
+ text-transform: uppercase;
+}
+
+.ui-panelgrid tr,
+.ui-panelgrid td {
+    border: none;
+}
+
+.companyHeaderGrid td {
+    border: none;
+}
+       
+.companyHeaderGrid {
+    border: none;
+}
+
+ .ui-panel-titlebar {
+    background: #92C6AE;
+    
+}
+
+.ui-dialog-titlebar{
+	 background: #92C6AE;
+}
+
+

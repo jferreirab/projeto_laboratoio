@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/CFJProtese/!svn/ver/4/branches/CFJProtese-Branch-01/JavaSource/com/dao
+END
+GenericDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/CFJProtese/!svn/ver/4/branches/CFJProtese-Branch-01/JavaSource/com/dao/GenericDAO.java
+END
+UserDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/CFJProtese/!svn/ver/4/branches/CFJProtese-Branch-01/JavaSource/com/dao/UserDAO.java
+END
+OrdemServicoDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/CFJProtese/!svn/ver/4/branches/CFJProtese-Branch-01/JavaSource/com/dao/OrdemServicoDAO.java
+END
+RelatorioOrdemServicoDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/CFJProtese/!svn/ver/4/branches/CFJProtese-Branch-01/JavaSource/com/dao/RelatorioOrdemServicoDAO.java
+END
+ClienteDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/CFJProtese/!svn/ver/4/branches/CFJProtese-Branch-01/JavaSource/com/dao/ClienteDAO.java
+END
+HistoricoOrdemServicoDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/CFJProtese/!svn/ver/4/branches/CFJProtese-Branch-01/JavaSource/com/dao/HistoricoOrdemServicoDAO.java
+END
+PersonDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/CFJProtese/!svn/ver/4/branches/CFJProtese-Branch-01/JavaSource/com/dao/PersonDAO.java
+END
+DogDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/CFJProtese/!svn/ver/4/branches/CFJProtese-Branch-01/JavaSource/com/dao/DogDAO.java
+END

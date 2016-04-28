@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+		        
+	<p:accordionPanel id="acordion2">
+	   <p:tab title="Item Ordem Serviço" id="tabItemOrdemSservico">
+			<h:panelGrid columns="3" id="painelgrid3">
+				     
+				     <h:outputText value="Serviço" />
+				  
+					 <p:autoComplete forceSelection="true" minQueryLength="3" value="#{ordemServicoMB.servico}" label="#{bundle.servico}"  var="servico"
+					       itemLabel="#{servico.dsDescricao}" itemValue="#{servico}" completeMethod="#{ordemServicoMB.completeServico}" dropdown="true" styleClass="maiusculo" size="40">
+					 </p:autoComplete>
+					 
+					  <h:outputText value="" />
+					  
+					 <h:outputText value="Cor" />
+					 <p:autoComplete forceSelection="true" minQueryLength="3" value="#{ordemServicoMB.cor}" label="Cor" var="cor"
+					       itemLabel="#{cor.nome}" itemValue="#{cor}" completeMethod="#{ordemServicoMB.completeCor}" dropdown="true" styleClass="maiusculo" size="40">
+					 </p:autoComplete>
+					 <h:outputText value="" />
+					 
+					 <h:outputText value="Dentes" />
+				     <p:selectCheckboxMenu id="menu" value="#{ordemServicoMB.selectedDentes}" label="Selecionar Dentes" filter="true" filterMatchMode="startsWith" panelStyle="width:250px">  
+				        <f:selectItems value="#{ordemServicoMB.dentes}" />
+				        <p:ajax  listener="#{ordemServicoMB.listaDentesString}" update="listaDente,quantidade" />   
+				    </p:selectCheckboxMenu>
+				    <p:inputText id="listaDente" value="#{ordemServicoMB.itemOrdemServico.dentesLista}" disabled="true" size="50">
+				    </p:inputText>
+			
+			        <h:outputText value="Quantidade" />
+			        <p:inputText id="quantidade" value="#{ordemServicoMB.itemOrdemServico.quantidade}" 
+			                label="Quantidade" size="10"
+						 style="text-align:right" lang="pt_BR" > 
+						  <f:convertNumber pattern="#,##0" minFractionDigits="0"  />
+						  <p:ajax update="precoTotal"  
+                             listener="#{ordemServicoMB.calculaPreco}" />
+			        </p:inputText>					
+			        <h:outputText value="" />
+			        
+			        <h:outputText value="Preço Unit." />
+			        <p:inputText value="#{ordemServicoMB.itemOrdemServico.precoUnitario}"  
+			                label="Preço Unitario" size="10"
+						 style="text-align:right" lang="pt_BR" > 
+						  <f:convertNumber pattern="#,##0.00" minFractionDigits="2"  />
+						   <p:ajax update="precoTotal"  
+                             listener="#{ordemServicoMB.calculaPreco}" />
+			     </p:inputText>	
+			     <h:outputText value="" />
+			     
+			     <h:outputText value="Preço Total" />
+			     <p:inputText id="precoTotal" value="#{ordemServicoMB.itemOrdemServico.precoTotal}" 
+			                label="Preço Total" size="10"
+						 style="text-align:right" lang="pt_BR" disabled="true"> 
+						  <f:convertNumber pattern="#,##0.00" minFractionDigits="2"  />
+			     </p:inputText>	
+			     <h:outputText value="" />
+			     
+			     <h:outputText value="Observação" />
+			     <p:inputText value="#{ordemServicoMB.itemOrdemServico.observacao}" size="50" label="Observação"  styleClass="maiusculo">
+			     </p:inputText>
+				 <h:outputText value="" />		
+		</h:panelGrid>
+  	  </p:tab>
+   </p:accordionPanel>
+
+</html>

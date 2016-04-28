@@ -1,0 +1,5 @@
+package com.model;
+
+public enum Situacao {
+    ENTRADA, SAIDA, FINALIZADA, RECEBIDO, RETORNO;
+}

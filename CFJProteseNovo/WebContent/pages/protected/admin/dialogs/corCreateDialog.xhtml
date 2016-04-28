@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<p:dialog widgetVar="corCreateDialogWidget"
+		id="corCreateDialogId" height="150" width="500" modal="true"
+		closable="true" draggable="false" resizable="false" header="Novo Cor">
+		<h:form id="corCreateDialogForm" prependId="false">
+			<h:panelGrid columns="2">
+				<h:outputText value="* #{bundle.corDescricao}" />
+				<p:inputText value="#{corMB.cor.nome}" required="true" label="#{bundle.corDescricao}"
+				     styleClass="maiusculo" size="70">
+				    
+				</p:inputText>
+						
+		
+				<p:commandButton value="#{bundle.create}" icon="ui-icon-plus"
+					action="#{corMB.createCor()}"
+					update=":messageGrowl :corsForm:corsTable"
+					oncomplete="closeDialogIfSucess(xhr, status, args, corCreateDialogWidget, 'corCreateDialogId')" />
+				<p:commandButton value="#{bundle.cancel}" icon="ui-icon-cancel" actionListener="#{corMB.resetCor()}"
+					onclick="corCreateDialogWidget.hide();" type="button" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/CFJProtese/!svn/ver/4/branches/CFJProtese-Branch-01/JavaSource/com/model
+END
+OrdemServico.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/CFJProtese/!svn/ver/4/branches/CFJProtese-Branch-01/JavaSource/com/model/OrdemServico.java
+END
+Role.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/CFJProtese/!svn/ver/4/branches/CFJProtese-Branch-01/JavaSource/com/model/Role.java
+END
+RelatorioOrdemServico.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/CFJProtese/!svn/ver/4/branches/CFJProtese-Branch-01/JavaSource/com/model/RelatorioOrdemServico.java
+END
+Cliente.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/CFJProtese/!svn/ver/4/branches/CFJProtese-Branch-01/JavaSource/com/model/Cliente.java
+END
+HistoricoOrdemServico.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/CFJProtese/!svn/ver/4/branches/CFJProtese-Branch-01/JavaSource/com/model/HistoricoOrdemServico.java
+END
+Person.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/CFJProtese/!svn/ver/4/branches/CFJProtese-Branch-01/JavaSource/com/model/Person.java
+END
+Situacao.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/CFJProtese/!svn/ver/4/branches/CFJProtese-Branch-01/JavaSource/com/model/Situacao.java
+END
+Dog.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/CFJProtese/!svn/ver/4/branches/CFJProtese-Branch-01/JavaSource/com/model/Dog.java
+END
+User.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/CFJProtese/!svn/ver/4/branches/CFJProtese-Branch-01/JavaSource/com/model/User.java
+END

@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<ui:composition template="/pages/protected/templates/master.xhtml">
+	 <h:outputScript name="locale-primefaces.js" library="js" />
+		<ui:define name="divMain">
+			<h:form id="dentistasForm">
+				<p:dataTable id="dentistasTable" value="#{dentistaMB.allDentistas}" var="dentista" emptyMessage="#{bundle.noRecords}" paginator="true" rows="10"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Codigo" />
+						</f:facet>
+
+						<h:outputText value="#{dentista.id}" size="10" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Dentista" />
+						</f:facet>
+
+						<h:outputText value="#{dentista.nome}" styleClass="maiusculo">
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="CRO" />
+						</f:facet>
+
+						<h:outputText value="#{dentista.cro}" styleClass="maiusculo">
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Clinica" />
+						</f:facet>
+
+						<h:outputText value="#{dentista.cliente.name}" styleClass="maiusculo">
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Data Cadastro" />
+						</f:facet>
+
+						<h:outputText value="#{dentista.dtCadastro}" >
+						  <f:convertDateTime type="date" dateStyle="short" locales="pt_BR"
+									  timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm" />
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Data Alteração" />
+						</f:facet>
+
+						<h:outputText value="#{dentista.dtAlteracao}" >
+						  <f:convertDateTime type="date" dateStyle="short" locales="pt_BR"
+									  timeZone="America/Sao_Paulo" pattern="dd/MM/yyyy HH:mm" />
+						</h:outputText>
+					</p:column>
+					<p:column>
+						
+						<p:commandButton value="#{bundle.update}" icon="ui-icon-pencil" update=":dentistaUpdateDialogForm" onclick="dentistaUpdateDialogWidget.show();"   >
+							<f:setPropertyActionListener target="#{dentistaMB.dentista}" value="#{dentista}" />
+						</p:commandButton>
+						
+					</p:column>
+
+				</p:dataTable>
+				<p:commandButton value="#{bundle.create} Dentista" icon="ui-icon-plus" update=":dentistaCreateDialogForm"
+					actionListener="#{dentistaMB.resetDentista()}" onclick="dentistaCreateDialogWidget.show();" />
+			</h:form>
+            <ui:include src="/pages/protected/admin/dialogs/dentistaCreateDialog.xhtml" />
+            <ui:include src="/pages/protected/admin/dialogs/dentistaUpdateDialog.xhtml" />
+			
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

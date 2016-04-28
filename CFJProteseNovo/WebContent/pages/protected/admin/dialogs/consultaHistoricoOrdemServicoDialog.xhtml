@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+    
+<p:dialog widgetVar="consultaHistoricoOrdemServicoDialogWidget"
+		id="consultaHistoricoOrdemServicoDialogId" height="520" width="1200" modal="true"
+		closable="true" draggable="false" resizable="false" header="Consulta Historico Ordem Serviço">
+		
+	<h:form id="consultaHistoricoOrdemServicoDialogForm" prependId="false">
+		
+		
+	    <ui:include src="/pages/protected/admin/subConsulta/subConsultaHistOS.xhtml" />
+	  		
+		<ui:include src="/pages/protected/admin/subTabela/subTabHistItemOS.xhtml" />
+		
+		<h:panelGrid columns="1" > 
+					<p:commandButton value="#{bundle.sair}" icon="ui-icon-cancel" 
+					onclick="consultaHistoricoOrdemServicoDialogWidget.hide();" type="button" />
+		</h:panelGrid>		
+			
+	</h:form>
+		
+</p:dialog>
+	
+</h:body>
+</html>
